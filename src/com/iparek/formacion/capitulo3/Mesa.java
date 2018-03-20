@@ -96,11 +96,10 @@ public class Mesa {
 	 *            1 Madera 2 Acero 3 Aluminio 4 Plastico
 	 */
 	public void setMaterial(int material) {
-		if (material < 0) {
-			if (material > 4) {
-				this.material = 1;
-			}
+		if (material > 0 || material <= 4) {
 			this.material = material;
+		} else {
+			this.material = 1;
 		}
 	}
 
@@ -119,28 +118,38 @@ public class Mesa {
 		// color
 		if (getColor() == PRECIO_COLOR_NAME_CUSTOM) {
 			precio = precio + PRECIO_COLOR_CUSTOM;
+
 		}
 		// Material
-		switch (getMaterial()) {
-		case 1:
-
+		String mate = "";
+		int material = this.getMaterial();
+		switch (material) {
+		case 1: {
+			precio = precio + PRECIO_MATERIAL_MADERA;
+			mate = "Madera";
 			break;
-		case 2:
-
+		}
+		case 2: {
+			precio = precio + PRECIO_MATERIAL_ACERO;
+			mate = "Acero";
 			break;
-		case 3:
-
+		}
+		case 3: {
+			precio = precio + PRECIO_MATERIAL_ALUMINIO;
+			mate = "Aluminio";
 			break;
-		case 4:
+		}
+		case 4: {
+			precio = precio + PRECIO_MATERIAL_PLASTICO;
+			mate = "Platisco";
 
-			break;
-
-		default:
 			break;
 		}
 
-		precio = precio + (getNumeroPatas() * PRECIO_PATA);
-		return "El precio total de su mesa es de: " + precio + "€";
+		}
+
+		return "El precio total de su mesa de " + getNumeroPatas() + " patas , de " + getDimension() + " m2 y de "
+				+ mate + " es de: " + precio + "€";
 	}
 
 }
