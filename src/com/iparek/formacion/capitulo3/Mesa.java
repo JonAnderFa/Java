@@ -6,19 +6,19 @@ package com.iparek.formacion.capitulo3;
 public class Mesa {
 
 	// precio en €
-	final int PRECIO_PATA = 1;
-	final int PRECIO_M2 = 5;
-	final int PRECIO_MATERIAL_MADERA = 4;
-	final int PRECIO_MATERIAL_ACERO = 6;
-	final int PRECIO_MATERIAL_ALUMINIO = 5;
-	final int PRECIO_MATERIAL_PLASTICO = 2;
-	final int PRECIO_COLOR_CUSTOM = 23;
-	final String PRECIO_COLOR_NAME_CUSTOM = "custom";
+	public static final int PRECIO_PATA = 1;
+	public static final int PRECIO_M2 = 5;
+	public static final int PRECIO_MATERIAL_MADERA = 4;
+	public static final int PRECIO_MATERIAL_ACERO = 6;
+	public static final int PRECIO_MATERIAL_ALUMINIO = 5;
+	public static final int PRECIO_MATERIAL_PLASTICO = 2;
+	public static final int PRECIO_COLOR_CUSTOM = 23;
+	public static final String PRECIO_COLOR_NAME_CUSTOM = "custom";
 
-	final int MATERIAL_MADERA = 1;
-	final int MATERIAL_ACERO = 2;
-	final int MATERIAL_ALUMINO = 3;
-	final int MATERIAL_PLASTICO = 4;
+	public static final int MATERIAL_MADERA = 1;
+	public static final int MATERIAL_ACERO = 2;
+	public static final int MATERIAL_ALUMINO = 3;
+	public static final int MATERIAL_PLASTICO = 4;
 
 	// Atributos siempre en private para mantener la encapsulacion
 	private int numeroPatas;
@@ -42,9 +42,17 @@ public class Mesa {
 		this.setMaterial(1);
 	}
 
+	public Mesa(int material) {
+		this();
+		this.setNumeroPatas(4);
+		this.setDimension(1);
+		this.setColor("blanco");
+		this.setMaterial(material);
+	}
+
 	// Constructor con atributos
 	public Mesa(int numeroPatas, int dimension, String color, int material) {
-		super();
+		this(material);
 		this.setNumeroPatas(numeroPatas);
 		this.setDimension(dimension);
 		this.setColor(color);
@@ -74,14 +82,14 @@ public class Mesa {
 	 * 
 	 * @author Jon Ander
 	 * @param numeroPatas
-	 *            en caso de ser negativo se inicializa en 0
+	 *            en caso de ser negativo se inicializa en 1
 	 */
 	public void setNumeroPatas(int numeroPatas) {
-		this.numeroPatas = (numeroPatas < 0) ? 0 : numeroPatas;
+		this.numeroPatas = (numeroPatas <= 0) ? 1 : numeroPatas;
 	}
 
 	public void setDimension(int dimension) {
-		this.dimension = (dimension < 0) ? 0 : dimension;
+		this.dimension = (dimension <= 0) ? 1 : dimension;
 	}
 
 	public void setColor(String color) {
@@ -109,14 +117,14 @@ public class Mesa {
 		return "Mesa [numeroPatas=" + numeroPatas + "]";
 	}
 
-	public String precio() {
+	public int getPrecio() {
 		int precio = 0;
 		// Empezamos sumando las patas
 		precio = precio + (getNumeroPatas() * PRECIO_PATA);
 		// Sumamos las dimensiones
 		precio = precio + (getDimension() * PRECIO_M2);
 		// color
-		if (getColor() == PRECIO_COLOR_NAME_CUSTOM) {
+		if (getColor().equals(PRECIO_COLOR_NAME_CUSTOM)) {
 			precio = precio + PRECIO_COLOR_CUSTOM;
 
 		}
@@ -147,9 +155,10 @@ public class Mesa {
 		}
 
 		}
-
-		return "El precio total de su mesa de " + getNumeroPatas() + " patas , de " + getDimension() + " m2 y de "
-				+ mate + " es de: " + precio + "€";
+		// System.out.println("El precio total de su mesa de " + getNumeroPatas() + "
+		// patas , de " + getDimension()
+		// + " m2 y de " + mate + " es de: " + precio + "€");
+		return precio;
 	}
 
 }
